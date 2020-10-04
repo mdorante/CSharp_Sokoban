@@ -166,7 +166,7 @@ namespace ConsoleApp5
 
             if (cantI == 0 || cantI > 1)
             {
-                throw new FormatException("No hay 'I' o hay mas de uno")
+                throw new FormatException("No hay 'I' o hay mas de uno");
             }
 
             return rv;
@@ -195,18 +195,20 @@ namespace ConsoleApp5
             bool[,] rv;
             int cantCajas = 0;
 
-
-            //?????????????????????
-
-            rv = new bool[/*????*/.GetLength(/*????*/), /*????*/.GetLength(/*????*/)];
-
-            for (int f = 0; f < mapa.GetLength(/*????*/); f++)
+            if (mapa == null)
             {
-                for (int c = 0; c < mapa.GetLength(/*????*/); c++)
+                throw new ArgumentNullException("El argumento mapa no puede ser null.");
+            }
+
+            rv = new bool[mapa.GetLength(0), mapa.GetLength(1)];
+
+            for (int f = 0; f < mapa.GetLength(0); f++)
+            {
+                for (int c = 0; c < mapa.GetLength(1); c++)
                 {
                     if (mapa[f, c] == Tile.InicioCaja)
                     {
-                        rv[f, c] = //?????;
+                        rv[f, c] = true;
                         cantCajas++;
                     }
                 }
@@ -214,9 +216,8 @@ namespace ConsoleApp5
 
             if (cantCajas == 0)
             {
-                // ??????????????????
+                throw new ArgumentException("No hay Tile.InicioCaja en mapa");
             }
-
 
             return rv;
         }
@@ -572,11 +573,8 @@ namespace ConsoleApp5
         /// 
         public static void Jugar(string[] infoMapa)
         {
-
-            /*??*/
-            [,] mapa;
-            /*??*/
-            [,] cajas;
+            Tile[,] mapa;
+            Tile[,] cajas;
             int filaJugador = 0;
             int columnaJugador = 0;
             string msjs = null;
@@ -584,7 +582,7 @@ namespace ConsoleApp5
 
 
             //Inicializar las variables.
-            mapa = CrearMapa(/*??*/);
+            mapa = CrearMapa(infoMapa);
             cajas = CrearCajas(/*??*/);
             InicializarJugador(/*??*/, /*??*/ filaJugador, /*??*/ columnaJugador);
 
