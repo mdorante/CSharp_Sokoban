@@ -243,23 +243,27 @@ namespace ConsoleApp5
         ///COMPLETE EL CODIGO donde encuentre ?????????????
         public static void InicializarJugador(Tile[,] mapa, ref int filaJugador, ref int columnaJugador)
         {
-            //?????????????????????????
+            if (mapa == null)
+            {
+                throw new ArgumentNullException("El argumento mapa no puede ser null");
+            }
 
 
             for (int f = 0; f < mapa.GetLength(0); f++)
             {
-                for (int c = 0; c < /*??*/; c++)
+                for (int c = 0; c < mapa.GetLength(1); c++)
                 {
-                    if (mapa[/*??*/, /*??*/] == Tile.InicioJugador)
+                    if (mapa[f, c] == Tile.InicioJugador)
                     {
-                        //????? = ??????;
-                        //???? = ?????;
+                        filaJugador = f;
+                        columnaJugador = c;
                         return;
                     }
                 }
             }
 
-            //???????????????????
+            // Si llegamos a esta linea, es porque no se consigue ningun Tile.InicioJugador en el mapa
+            throw new ArgumentException("No hay Tile.InicioJugador presente en mapa");
 
         }
 
@@ -574,7 +578,7 @@ namespace ConsoleApp5
         public static void Jugar(string[] infoMapa)
         {
             Tile[,] mapa;
-            Tile[,] cajas;
+            bool[,] cajas;
             int filaJugador = 0;
             int columnaJugador = 0;
             string msjs = null;
@@ -583,8 +587,8 @@ namespace ConsoleApp5
 
             //Inicializar las variables.
             mapa = CrearMapa(infoMapa);
-            cajas = CrearCajas(/*??*/);
-            InicializarJugador(/*??*/, /*??*/ filaJugador, /*??*/ columnaJugador);
+            cajas = CrearCajas(mapa);
+            InicializarJugador(mapa, ref filaJugador, ref columnaJugador);
 
             //Renderizar el juego
             Renderizar(/*??*/, cajas, /*??*/, columnaJugador, msjs);
