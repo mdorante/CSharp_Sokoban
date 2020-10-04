@@ -591,7 +591,7 @@ namespace ConsoleApp5
             InicializarJugador(mapa, ref filaJugador, ref columnaJugador);
 
             //Renderizar el juego
-            Renderizar(/*??*/, cajas, /*??*/, columnaJugador, msjs);
+            Renderizar(mapa, cajas, filaJugador, columnaJugador, msjs);
 
 
             while (!EsVictoria(/*??*/, /*??*/))
