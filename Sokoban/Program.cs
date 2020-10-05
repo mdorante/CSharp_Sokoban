@@ -280,12 +280,16 @@ namespace ConsoleApp5
                     filaJugador++;
                     break;
                 case Direccion.Este:
-                    columnaJugador--;
-                    break;
-                case Direccion.Oeste:
                     columnaJugador++;
                     break;
+                case Direccion.Oeste:
+                    columnaJugador--;
+                    break;
+                case Direccion.Ninguna:
+                    return;
             }
+
+            return;
         }
 
 
@@ -691,11 +695,6 @@ namespace ConsoleApp5
                                          "+++++++++++"};
 
             Jugar(lv);
-
-
-
-
-
 
             Console.ReadLine();
         }
