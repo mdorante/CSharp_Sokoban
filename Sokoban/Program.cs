@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Threading;
 
@@ -345,6 +346,11 @@ namespace ConsoleApp5
                 throw new ArgumentException("El tamaño de las dimensiones de mapa y cajas son diferente");
             }
 
+            if (dir == Direccion.Ninguna)
+            {
+                return false;
+            }
+
 
             ActualizarMovimiento(dir, ref nuevaFilaJugador, ref nuevaColumnaJugador);
 
@@ -546,34 +552,59 @@ namespace ConsoleApp5
                     switch (mapa[f, c])
                     {
                         case Tile.InicioJugador:
-                            Dibujar('&', ConsoleColor.Yellow);
+                            if (f == filaJugador && c == columnaJugador)
+                            {
+                                Dibujar('&', ConsoleColor.Yellow);
+                            }
+                            else
+                            {
+                                Dibujar(' ');
+                            }
                             break;
                         case Tile.Pared:
                             Dibujar('+', ConsoleColor.DarkGray);
                             break;
                         case Tile.InicioCaja:
-                            ConsoleColor color;
-
-                            if (cajas[f, c] == true)
+                            if (f == filaJugador && c == columnaJugador)
                             {
-                                color = ConsoleColor.Green;
+                                Dibujar('&', ConsoleColor.Yellow);
+                            }
+                            else if (cajas[f, c])
+                            {
+                                Dibujar('#', ConsoleColor.White);
                             }
                             else
                             {
-                                color = ConsoleColor.White;
+                                Dibujar(' ');
                             }
-
-                            Dibujar('#', color);
                             break;
                         case Tile.Boton:
-                            if ((f == filaJugador && c == columnaJugador) || cajas[f, c] == true)
+                            if (cajas[f, c])
                             {
-                                break;
+                                Dibujar('#', ConsoleColor.Green);
                             }
-                            Dibujar('*', ConsoleColor.Red);
+                            else if (f == filaJugador && c == columnaJugador)
+                            {
+                                Dibujar('&', ConsoleColor.Yellow);
+                            }
+                            else
+                            {
+                                Dibujar('*', ConsoleColor.Red);
+                            }
                             break;
-                        default:
-                            Dibujar(' ');
+                        case Tile.Piso:
+                            if (f == filaJugador && c == columnaJugador)
+                            {
+                                Dibujar('&', ConsoleColor.Yellow);
+                            }
+                            else if (cajas[f, c])
+                            {
+                                Dibujar('#', ConsoleColor.White);
+                            }
+                            else
+                            {
+                                Dibujar(' ');
+                            }
                             break;
                     }
                 }
