@@ -382,7 +382,7 @@ namespace ConsoleApp5
             filaJugador = nuevaFilaJugador;
             columnaJugador = nuevaColumnaJugador;
 
-            return //?????;
+            return true;
         }
 
 
@@ -455,7 +455,20 @@ namespace ConsoleApp5
 
             switch (tecla)
             {
-                // ??????????????????????????????????????????
+                case ConsoleKey.UpArrow:
+                    rv = Direccion.Norte;
+                    break;
+                case ConsoleKey.DownArrow:
+                    rv = Direccion.Sur;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    rv = Direccion.Oeste;
+                    break;
+                case ConsoleKey.RightArrow:
+                    rv = Direccion.Este;
+                    break;
+                default:
+                    return Direccion.Ninguna;
             }
 
 
