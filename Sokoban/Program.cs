@@ -330,25 +330,25 @@ namespace ConsoleApp5
             int nuevaFilaJugador = filaJugador;
             int nuevaColumnaJugador = columnaJugador;
 
-            //?????????????????????????????????
-
-            //?????????????????????????????????
-
-            //???????????????????????????????
-
-            //??????????????????????????????
-
-
-            //??????????????????????????????
-
-
-            ActualizarMovimiento(??, ??, ??);
-
-
-            if (nuevaFilaJugador < 0 || nuevaFilaJugador >= mapa./*????*/(0) ||
-                 nuevaColumnaJugador < 0 || nuevaColumnaJugador >= /*????*/.GetLength(1))
+            if (mapa == null || cajas == null)
             {
-                return ?????;
+                throw new ArgumentNullException("Alguna de las matrices es null");
+            }
+
+
+            if (mapa.Length != cajas.Length || mapa.GetLength(0) != cajas.GetLength(0) || mapa.GetLength(1) != cajas.GetLength(1))
+            {
+                throw new ArgumentException("El tamaño de las dimensiones de mapa y cajas son diferente");
+            }
+
+
+            ActualizarMovimiento(dir, ref nuevaFilaJugador, ref nuevaColumnaJugador);
+
+
+            if (nuevaFilaJugador < 0 || nuevaFilaJugador >= mapa.GetLength(0) ||
+                 nuevaColumnaJugador < 0 || nuevaColumnaJugador >= mapa.GetLength(1))
+            {
+                return false;
             }
 
 
@@ -363,7 +363,7 @@ namespace ConsoleApp5
                 int facaja = nuevaFilaJugador + (nuevaFilaJugador - filaJugador);
                 int cacaja = nuevaColumnaJugador + (nuevaColumnaJugador - columnaJugador);
 
-                if (facaja < 0 || facaja >= mapa.GetLength(????) || cacaja < 0 || cacaja >= mapa.?????? (1))
+                if (facaja < 0 || facaja >= mapa.GetLength(0) || cacaja < 0 || cacaja >= mapa.GetLength(1))
                     return false;
 
 
@@ -379,8 +379,8 @@ namespace ConsoleApp5
 
             }
 
-            /*????*/ = nuevaFilaJugador;
-            columnaJugador = //??????;
+            filaJugador = nuevaFilaJugador;
+            columnaJugador = nuevaColumnaJugador;
 
             return //?????;
         }
@@ -399,10 +399,27 @@ namespace ConsoleApp5
         /// <exception cref="ArgumentNullException">Alguna de las matrices es null</exception>
         /// 
         ///COMPLETE EL CODIGO donde encuentre ?????????????
-        public static /*????*/ EsVictoria(/*???*/, /*?????*/)
+        public static bool EsVictoria(Tile[,] mapa, bool[,] cajas)
         {
-            // ????????????????????????????????
+            if (mapa == null || cajas == null)
+            {
+                throw new ArgumentNullException("Alguna de las matrices es null");
+            }
 
+            //for (int f = 0; f < mapa.GetLength(0); f++)
+            //{
+            //    for (int c = 0; c < mapa.GetLength(1); c++)
+            //    {
+            //        if (mapa[f, c] == Tile.InicioJugador)
+            //        {
+            //            filaJugador = f;
+            //            columnaJugador = c;
+            //            return;
+            //        }
+            //    }
+            //}
+
+            return false;
         }
 
 
@@ -594,27 +611,27 @@ namespace ConsoleApp5
             Renderizar(mapa, cajas, filaJugador, columnaJugador, msjs);
 
 
-            while (!EsVictoria(/*??*/, /*??*/))
+            while (!EsVictoria(mapa, cajas))
             {
 
                 //Obtener input del usuario.
-                Direccion dir = ????/*??*/?;
+                Direccion dir = ObtenerDireccionMovimiento();
 
-                if (EjecutarMovimiento(/*??*/, /*??*/, /*??*/, /*??*/, /*??*/))
+                if (EjecutarMovimiento(dir, mapa, cajas, ref filaJugador, ref columnaJugador))
                 {
-                    movimientos/*??*/;
+                    movimientos++;
                     msjs = $"{movimientos} movimientos";
                 }
 
                 //Renderizar el juego
-                //?????????????????????????????????????
+                Renderizar(mapa, cajas, filaJugador, columnaJugador, msjs);
 
 
             }
 
             msjs = $"Victoria en {movimientos} movimientos!!";
             //Renderizar el juego
-            //?????????????????????????????????????
+            Renderizar(mapa, cajas, filaJugador, columnaJugador, msjs);
 
         }
 
