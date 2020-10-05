@@ -274,16 +274,16 @@ namespace ConsoleApp5
             switch (dir)
             {
                 case Direccion.Norte:
-                    filaJugador/*??*/;
+                    filaJugador--;
                     break;
                 case Direccion.Sur:
-                    filaJugador/*??*/;
+                    filaJugador++;
                     break;
                 case Direccion.Este:
-                    columnaJugador/*??*/;
+                    columnaJugador--;
                     break;
                 case Direccion.Oeste:
-                    columnaJugador/*??*/;
+                    columnaJugador++;
                     break;
             }
         }
@@ -406,20 +406,19 @@ namespace ConsoleApp5
                 throw new ArgumentNullException("Alguna de las matrices es null");
             }
 
-            //for (int f = 0; f < mapa.GetLength(0); f++)
-            //{
-            //    for (int c = 0; c < mapa.GetLength(1); c++)
-            //    {
-            //        if (mapa[f, c] == Tile.InicioJugador)
-            //        {
-            //            filaJugador = f;
-            //            columnaJugador = c;
-            //            return;
-            //        }
-            //    }
-            //}
+            for (int f = 0; f < mapa.GetLength(0); f++)
+            {
+                for (int c = 0; c < mapa.GetLength(1); c++)
+                {
+                    if (cajas[f, c] && mapa[f, c] != Tile.Boton)
+                    {
+                        return false;
+                    }
+                }
+            }
 
-            return false;
+            // Si llegamos hasta aqui, es porque todos los elementos true de cajas coinciden con un boton de mapa
+            return true;
         }
 
 
