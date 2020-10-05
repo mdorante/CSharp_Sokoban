@@ -536,13 +536,43 @@ namespace ConsoleApp5
         ///COMPLETE EL CODIGO donde encuentre ?????????????
         public static void DibujarJuego(Tile[,] mapa, bool[,] cajas, int filaJugador, int columnaJugador)
         {
-            for (int f = 0; f < mapa.GetLength(/*??????? */); f++)
+            for (int f = 0; f < mapa.GetLength(0); f++)
             {
-                for (int c = 0; c < mapa.GetLength(/*????*/); c++)
+                for (int c = 0; c < mapa.GetLength(1); c++)
                 {
+                    switch (mapa[f, c])
+                    {
+                        case Tile.InicioJugador:
+                            Dibujar('&', ConsoleColor.Yellow);
+                            break;
+                        case Tile.Pared:
+                            Dibujar('+', ConsoleColor.DarkGray);
+                            break;
+                        case Tile.InicioCaja:
+                            ConsoleColor color;
 
-                    //??????????????????????????????????????????????????????????????
+                            if (cajas[f, c] == true)
+                            {
+                                color = ConsoleColor.Green;
+                            }
+                            else
+                            {
+                                color = ConsoleColor.White;
+                            }
 
+                            Dibujar('#', color);
+                            break;
+                        case Tile.Boton:
+                            if ((f == filaJugador && c == columnaJugador) || cajas[f, c] == true)
+                            {
+                                break;
+                            }
+                            Dibujar('*', ConsoleColor.Red);
+                            break;
+                        default:
+                            Dibujar(' ');
+                            break;
+                    }
                 }
                 Console.WriteLine();
             }
