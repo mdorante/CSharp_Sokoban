@@ -490,7 +490,6 @@ namespace ConsoleApp5
                     return Direccion.Ninguna;
             }
 
-
             return rv;
         }
 
