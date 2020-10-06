@@ -253,7 +253,7 @@ namespace ConsoleApp5
         {
             if (mapa == null)
             {
-                throw new ArgumentNullException("El argumento mapa no puede ser null");
+                throw new ArgumentNullException("El argumento mapa es null");
             }
 
 
@@ -418,14 +418,17 @@ namespace ConsoleApp5
         ///COMPLETE EL CODIGO donde encuentre ?????????????
         public static bool EsVictoria(Tile[,] mapa, bool[,] cajas)
         {
+            int mapaLenFilas = mapa.GetLength(0);
+            int mapaLenColumnas = mapa.GetLength(1);
+
             if (mapa == null || cajas == null)
             {
                 throw new ArgumentNullException("Alguna de las matrices es null");
             }
 
-            for (int f = 0; f < mapa.GetLength(0); f++)
+            for (int f = 0; f < mapaLenFilas; f++)
             {
-                for (int c = 0; c < mapa.GetLength(1); c++)
+                for (int c = 0; c < mapaLenColumnas; c++)
                 {
                     if (cajas[f, c] && mapa[f, c] != Tile.Boton)
                     {
