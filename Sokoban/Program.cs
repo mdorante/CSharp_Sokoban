@@ -205,7 +205,7 @@ namespace ConsoleApp5
 
             if (mapa == null)
             {
-                throw new ArgumentNullException("El argumento mapa no puede ser null.");
+                throw new ArgumentNullException("El argumento mapa es null.");
             }
 
             rv = new bool[mapa.GetLength(0), mapa.GetLength(1)];
