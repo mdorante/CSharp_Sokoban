@@ -102,17 +102,24 @@ namespace ConsoleApp5
 
             if (infoMapa == null)
             {
-                throw new ArgumentNullException("El parametro infoMapa no puede ser null.");
+                throw new ArgumentNullException("El parametro infoMapa es null.");
             }
 
             if (infoMapa.Length < 4)
             {
-                throw new ArgumentException("El parametro infoMapa no puede tener menos de 4 elementos.");
+                throw new ArgumentException("El parametro infoMapa tiene menos de 4 elementos.");
             }
 
 
             //Si el elemento 0 es null, se lanza NullReferenceException
-            rv = new Tile[infoMapa.Length, infoMapa[0].Length];
+            if (infoMapa[0] == null)
+            {
+                throw new NullReferenceException("El primer elemento de infoMapa es null.");
+            }
+            else
+            {
+                rv = new Tile[infoMapa.Length, infoMapa[0].Length];
+            }
 
             //Por cada fila
             for (int f = 0; f < rv.GetLength(0); f++)
